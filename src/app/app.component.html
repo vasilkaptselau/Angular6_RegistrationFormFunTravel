@@ -1,0 +1,64 @@
+<div class="col-xs-10 col-lg-4 col-xs-offset-1 col-lg-offset-3">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2 class="text-center">Registration Form</h2>
+    <div formGroupName="user">
+      <div class="form-group"  [ngClass]="{'has-error': form.get('user.email').invalid && form.get('user.email').touched}">
+      <label>Email</label>
+      <input type="text"
+             class="form-control"
+             formControlName="email">
+        <p
+          *ngIf="form.get('user.email').invalid && form.get('user.email').touched">
+          <span *ngIf="form.get('user.email').errors['email']">Please, type correct email.</span>
+          <span *ngIf="form.get('user.email').errors['emailIsUsed']">Email is used.</span>
+        </p>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error': form.get('user.password').invalid && form.get('user.password').touched}">
+      <label>Password</label>
+      <input type="password"
+             class="form-control"
+             formControlName="password">
+        <p
+          *ngIf="form.get('user.password').invalid && form.get('user.password').touched">
+          <span *ngIf="form.get('user.password').errors['required']">Please, type correct password.</span>
+          <span *ngIf="form.get('user.password').errors['lengthError']">Password should be at least {{passwordNumbers}} characters.</span>
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Select states</label>
+      <select class="form-control" formControlName="state">
+        <option value="al">Alabama</option>
+        <option value="ak">Alaska</option>
+        <option value="az">Arizona</option>
+        <option value="ar">Arkansas</option>
+        <option value="ca">California</option>
+        <option value="co">Colorado</option>
+        <option value="ct">Connecticut</option>
+        <option value="de">Delaware</option>
+        <option value="fl">Florida</option>
+        <option value="ga">Georgia</option>
+        <option value="hi">Hawaii</option>
+        <option value="ida">Idaho</option>
+        <option value="il">Illinois</option>
+      </select>
+    </div>
+    <p class="text-left font-weight-bold">Would you like to receive emails
+      about special offers and new product information from Fun Travel ?</p>
+    <div class="radio" *ngFor="let ans of answers">
+      <label>
+        <input type="radio"
+               [value]="ans.type"
+               name="answer"
+               formControlName="answer"
+        > {{ans.text}}
+      </label>
+    </div>
+    <button class="btn btn-success btn-block"
+            type="submit"
+            [disabled]="form.invalid"
+            >SAVE</button>
+
+  </form>
+
+</div>
